@@ -1,0 +1,328 @@
+{block titulek}
+    Detail nemovitosti
+{/block}
+
+{block navigace}
+    {if $user->isAllowed('adminMenu')}<a href="#">Administrátor</a> » {/if}
+    {if $nemovitost->mod == 2}
+        <a n:href="Nemovitosti:vypis, 4">Nemovitosti, které jsou určeny k prodeji</a>
+    {elseif $nemovitost->mod == 3}
+        <a n:href="Nemovitosti:vypis, 5">Nemovitosti, které již byly prodány</a>
+    {else}
+        {if $status == 1}
+            <a n:href="Nemovitosti:vypis, 1">Nemovitosti, které čekají na zahájení aukce</a>
+        {elseif $status == 2}
+            <a n:href="Nemovitosti:vypis, 2">Nemovitosti, u kterých aukce již proběhla</a>
+        {else}
+            <a n:href="Nemovitosti:vypis, 3">Nemovitosti, u kterých aukce právě probíhá</a>
+        {/if}
+    {/if} » {$nemovitost->typ->typ} {if $nemovitost->is_public == 0} <a n:href="Nemovitosti:vypisNepublikovanych">(nepublikováno)</a>{/if}
+{/block}
+
+{block content}
+<div n:if="$user->isAllowed('adminMenu')" class="box-admin-menu">
+    <div class="adminmenu">
+        <ul>
+            <li>
+                <a href="#">Akce s fotogalerií</a>
+                <ul>
+                    <li><a n:href="Foto:upload, $nemovitost->id">Nahrát fotografie</a></li>
+                    <li><a n:href="Foto:nastavHlavniFoto, $nemovitost->id">Nastavit hlavní foto</a></li>
+                    <li><a n:href="Foto:smazat, $nemovitost->id">Mazat fotografie</a></li>
+                </ul>
+            </li>
+             <li>
+                <a href="#">Akce s PDF soubory</a>
+                <ul>
+                    <li><a n:href="File:upload, $nemovitost->id">Nahrát nové</a></li>
+                    <li><a n:href="File:vypis, $nemovitost->id">Výpis a správa nahraných souborů</a></li>
+                </ul>
+            </li>
+            <li n:if="$nemovitost->mod == 1">
+                <a n:href="Aukce:vypisHistorieAukce, $nemovitost->id">Výpis historie aukce</a>
+            </li>
+            <li>
+                <a href="#">Akce s nemovitostmi</a>
+                <ul>
+                    <li><a n:href="upravitNemovitost, $nemovitost->id">Upravit nemovitost</a></li>
+                    <li><a n:href="smazatNemovitost, $nemovitost->id">Smazat nemovitost</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div n:if="$user->isAllowed('adminMenu')&&$nemovitost->admin_description!=''" class="info">
+<b>Poznámka administrátora.</b> {$nemovitost->admin_description}
+</div>
+{dump $nemovitost->typ->typ}
+<div class="box-left">
+    <h2>
+        {$nemovitost->nazev}
+    </h2>
+    <div>
+        <h3>ID nemovitosti:</h3>
+        <p>{$nemovitost->idn}</p>
+    </div>
+    <div>
+        <h3>Stav:</h3>
+        <p>{$nemovitost->status}</p>
+    </div>
+    <div>
+        <h3>Adresa nemovitosti:</h3>
+        <p>{$nemovitost->adresa}</p>
+    </div>
+    <div>
+        <h3>Popis nemovitosti:</h3>
+        <p>{$nemovitost->popis}</p>
+    </div>
+    {* jedna se o aukci *}
+    {if $nemovitost->mod < 2} 
+    <div class="inline">
+        <div>
+            <h3>Aktuální cena nemovitosti:</h3> 
+            <p>{$drazba['cena']|number} Kč 
+                {if $status == 3}
+                    {* tlacitko pro drazbu zobraz jen pokud ma uzivatel prava zajemce a jemu pridelena id_nemovitost se shoduje s id aktualni nemovitosti *}
+                    <a class="btn btn-default button" n:if="$user->isAllowed('drazba','prihodit')&&($nemovitost->id == $user->identity->id_nemovitost)" n:href="Aukce:prihodit, $nemovitost->id">
+                        Přihodit
+                    </a>
+                {/if}
+            </p>               
+        </div>
+        <div>
+            <h3>Poznámka k ceně:</h3> 
+            <p>{$nemovitost->price_description}</p>               
+        </div>
+        <div>
+            <h3>Nejvyšší nabídka od:</h3> 
+            <p>
+                {if $user->isAllowed('zajemce','zobrazit')&&$drazba['nick']!=null}
+                    <a class="ref-profil" n:href="Uzivatele:vizitka, $drazba['id']">{$drazba['nick']}</a>
+                {else}
+                    {$drazba['nick']}
+                {/if}
+            </p>
+        </div>
+    </div>
+    <div class="inline">
+        <div>
+            <h3>Datum zahájení aukce:</h3> 
+            <p>{$nemovitost->datum_zacatek|date:'j.n.Y'}</p>
+        </div>
+        <div>
+            <h3>Čas zahájení aukce:</h3> 
+            <p>{$nemovitost->datum_zacatek|date:'H:i'}</p>
+        </div>
+    </div>
+    <div class="inline">
+        <div>
+            <h3>Datum ukončení aukce:</h3> 
+            <p>{$nemovitost->datum_konec|date:'j.n.Y'}</p>
+        </div>
+        <div>
+            <h3>Čas ukončení aukce:</h3> 
+            <p>{$nemovitost->datum_konec|date:'H:i'}</p>
+        </div>
+    </div>
+    {* jedna se o prodej *}
+    {else} 
+    <div class="inline">
+        <div>
+            <h3>Cena nemovitosti:</h3> 
+            <p>{$nemovitost->pocatecni_cena|number} Kč</p>               
+        </div>
+        <div>
+            <h3>Poznámka k ceně:</h3> 
+            <p>{$nemovitost->price_description}</p>               
+        </div>
+    </div>
+    {/if}
+</div>
+<div class="box-right">
+
+    {if isset($hlavni_fotka->name)}
+    <div id="main-photo" class="main-photo" photo-id="0">
+        {* popisek pro uzivatele, ze lze foto zvetsit *}
+        <div>
+            <img src="../../images/icons/mix/zoom.png">
+            <span>Zobrazit plnou velikost</span>
+        </div>
+        {* hlavni foto *}
+        <img src="../../images/auction/{$hlavni_fotka->id_property}/{$hlavni_fotka->name}">
+    {else}
+    <div class="main-photo" photo-id="0">
+        <img src="../../images/auction/default.jpg">
+    {/if}
+    </div>
+    <div class="miniatures">
+        {var $index = 0}
+        {foreach $fotky as $fotka}
+            <span href="../../images/auction/{$fotka->id_property}/{$fotka->name}" data-lightbox="photogallery" photo-id="{$index++}">
+            	<img src="../../images/auction/{$fotka->id_property}/{$fotka->name}">  
+            </span>  
+        {/foreach}
+    </div>
+
+    <div class="pdfs">
+    	<h3>Přiložené PDF soubory:</h3>
+    	{if}
+    	 <ul>
+    		{foreach $files as $file}
+            	<li>
+            		<a href="../../files/auction/{$file->id_property}/{$file->hid_name}-{$file->timestamp}.{$file->type}" target="_blank">
+            			<img src="../../images/icons/pdf.jpg" height="18">    
+            			{$file->name} (.{$file->type}, {$file->size} MB)
+            		</a>  
+            	</li>
+        	{/foreach}
+         </ul>
+        {else}
+        	<span>Nejsou k dispozici, žádné PDF soubory.</span>
+    	{/if isset($file)}
+    </div>
+
+    <div class="contact">
+        <h3>Kontaktní osoba:</h3>
+        <div>
+            <p>
+                {$nemovitost->uzivatel->jmeno}<br>
+            </p>
+            <p>
+                <a href="mailto:{$nemovitost->uzivatel->email}">
+                    {$nemovitost->uzivatel->email}
+                </a>
+            </p>
+            <p>
+                <a href="tel:{$nemovitost->uzivatel->telefon|strip|replace:' ',''}">
+                    {$nemovitost->uzivatel->telefon}
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="box-bottom">
+    <iframe width="100%" height="400" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAFNdFUtRnkm7hvikG-jOHUQZGWorUtxOA&q={$nemovitost->adresa|strip|replace:' ','+'}">
+    </iframe>
+</div>
+{/block}
+
+{block head}
+<style>
+    a { color: #555; text-decoration: none;}
+    a:hover { color: #555; text-decoration: none; background: transparent;}
+    div.info { margin-bottom: 2em;}
+    div.flash { margin-bottom: 1em;}
+    div.box-right { 
+        margin: 0;  
+        padding: 0; 
+        overflow: hidden;
+        width: 40%;
+        text-align: center;
+    }
+    div.box-right .contact > div { margin: 1em 0; padding: 0; }
+    div.box-right .contact > div p { margin: 0; padding: 0;}
+    div.box-right .contact { margin: 1em 2em 1em 0;}
+    div.box-right .pdfs { 
+    	margin: 1em 2em 1em 0;
+    	padding: 0;
+    }
+    div.box-right .pdfs span { margin: 0; padding: 0; display: block; text-align: left;}
+    div.box-right .pdfs ul li a, div.box-right .pdfs span { color: #999; font-size: 90%;}
+    div.box-right .pdfs ul { margin: 0; padding: 0;}
+    div.box-right .pdfs ul li { margin: 0; padding: 5px 7px; list-style-type: none; height: 22px; vertical-align: middle; text-align: left;}
+    div.box-right .pdfs ul li img { margin-bottom: -4px;}
+    div.box-right .contact h3, div.box-right .pdfs h3 { color: #1e5eb6; font-weight: normal; margin: 0; padding: 0; font-size: 1em; text-align: left;}
+    div.box-right .main-photo { margin: 0 2em 0 0; padding: 0;}
+    div.box-right .main-photo > img { width: 100%;}
+    div.box-right #main-photo img, div.box-right .main-photo > div { cursor: pointer;}
+    div.box-right .main-photo > div {
+        height: 28px; 
+        margin: 0;
+        padding: 4px 0 0 0;
+        position: absolute;
+        background-color: #ffffff; 
+        opacity: 0.9;
+        filter: alpha(opacity=90); /* For IE8 and earlier */
+        -webkit-border-bottom-right-radius: 5px;
+        -moz-border-radius-bottomright: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    div.box-right .main-photo > div span { margin: 0; padding: 0 8px 0 2px; display: none;}
+    div.box-right .main-photo > div > img { float: left; margin: -4px 0 0 0;}
+    div.box-right .miniatures { margin: 0 2em 0 0; padding: 0; text-align: left;}
+    div.box-right .miniatures img { width: 23.85%; cursor: pointer;}
+    div.box-right .miniatures a, div.box-right .main-photo a, div.box-right .miniatures a:hover, div.box-right .main-photo a:hover, div.box-right .miniatures a:active, div.box-right .main-photo a:active { padding: 0; margin: 0; border: 0; background: transparent;} 
+    div.box-right .map { margin: 0 2em 0 0; padding: 0;}
+    div.box-left { 
+        margin: 0;  
+        padding: 0; 
+        overflow: hidden;
+        width: 60%;
+        text-align: left;
+        float: left;
+    }
+    div.box-left h2 { margin: 1em; padding: 0; font-size: 1.7em;}
+    div.box-left h3, div.box-left p { margin: 0 1em; padding: 0; font-size: 1em;}
+    div.box-left h3 { color: #1e5eb6; font-weight: normal;}
+    div.box-left > div { margin: 1em;}
+    div.box-left div.inline { display: block;}
+    div.box-left div.inline h3 { display: inline-block; width: 40%;}
+    div.box-left div.inline p { display: inline-block; text-align: left;}
+    div.box-left div.inline a.btn { text-decoration: none; position: absolute; margin-left: 167px; margin-top: -17px;}
+    div.box-admin-menu { 
+        clear: both;
+        margin: 0 0 1em 0;  
+        padding: 0; 
+        overflow: visible;
+        text-align: center;
+    }
+    div.box-bottom {
+        clear: both; 
+        margin: 0 -0.5em;  
+        padding: 0; 
+        
+        text-align: right;
+    }  
+    .adminmenu ul, .adminmenu li, .adminmenu span, .adminmenu a { margin: 0; padding: 0; position: relative; }
+    .adminmenu {
+        z-index: 100;
+        display: inline-block;
+        width: auto;
+        line-height: 1;
+        background: #141414;
+        background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
+        background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -o-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
+        background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+        margin: 1em auto;
+        padding: 0;
+        border-radius: 6px;
+    }
+    .adminmenu a {
+        background: #141414;
+        background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
+        background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -o-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
+        background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+        color: #ffffff;
+        display: inline-block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+    .adminmenu a:hover { background: rgb(102,123,180); }
+    .adminmenu ul { list-style: none; }
+    .adminmenu > ul > li { display: inline-block; margin: 0; }
+    .adminmenu > ul > li > a, .adminmenu ul ul li a { color: #ffffff; font-size: 12px; }
+    .adminmenu > ul > li:first-child > a { border-radius: 6px 0 0 6px; }
+    .adminmenu > ul > li:last-child > a { border-radius: 0 6px 6px 0; }
+    .adminmenu ul li ul { position: absolute; display: none; border-radius: 6px; margin: 1px 0 0 0;}
+    .adminmenu ul li:hover ul { display: block;}
+    .adminmenu ul ul li a { width: 100%; text-align: left;}
+    .adminmenu ul ul li:first-child a { border-radius: 6px 6px 0 0;}
+    .adminmenu ul ul li:last-child a { border-radius: 0 0 6px 6px;}
+</style>
+{/block}

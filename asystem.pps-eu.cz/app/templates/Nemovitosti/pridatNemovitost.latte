@@ -1,0 +1,35 @@
+{block titulek}
+    Přidání nemovitosti
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » Přidat nemovitost
+{/block}
+
+{block content}
+    <div class="info">
+        Nemovitost, určená k aukci, musí obsahovat název, adresu, popis, počáteční cenu, datum a čas začátku, datum a čas konce.<br>
+        Datum a čas je třeba zadat ve tvaru <span>[rok]</span>-<span>[měsíc]</span>-<span>[den]</span> <span>[hodiny]</span>:<span>[minuty]</span> (př. {Date('Y-m-d H:i')}).
+    </div>
+    {control nemovitostForm}
+{/block}
+
+{block head}
+<style>
+    div.info span { margin: 0; padding: 0; color: #1e5eb6;}
+    #frm-nemovitostForm, #frm-nemovitostForm table { margin: 1em auto; }
+    #frm-nemovitostForm tr:first-child { display: none; }
+    #frm-nemovitostForm tr:nth-child(14) { display: none; }
+    #frm-nemovitostForm tr th { width: 20%; text-align: right; padding: 6px; }
+    #frm-nemovitostForm tr th label { font-weight: bold; }
+    #frm-nemovitostForm tr td { width: 40%; text-align: left; }
+    #frm-nemovitostForm tr td input, #frm-nemovitostForm tr td textarea {
+        width: 55%; 
+        text-align: left;
+    }
+    #frm-nemovitostForm tr td input[type="checkbox"] { width: auto;}
+    #frm-nemovitostForm tr td textarea { height: 12em; text-align: left; }
+    #frm-nemovitostForm tr td .button { width: auto; text-align: center; }
+    #frm-nemovitostForm tr:last-child input { width: 362px;}
+</style>
+{/block}

@@ -1,0 +1,22 @@
+{block titulek}
+    Mazání příhozu
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » {if $status == 1}<a n:href="Nemovitosti:vypis, 1">Nemovitosti, které čekají na zahájení dražby</a>{elseif $status == 2}<a n:href="Nemovitosti:vypis, 2">Nemovitosti, u kterých dražba již proběhla</a>{else}<a n:href="Nemovitosti:vypis, 3">Nemovitosti, u kterých dražba právě probíhá</a>{/if} » <a n:href="Nemovitosti:detailNemovitosti, $prihoz->id_nemovitost">{$prihoz->nemovitost->nazev}</a> » <a n:href="Aukce:vypisHistorieAukce, $prihoz->id_nemovitost">Výpis historie aukce</a> » Smazat příhoz
+{/block}
+
+{block content}
+    <div class="info">
+        Opravdu chcete smazat příhoz od <a n:href="Uzivatele:vizitka, $prihoz->uzivatel">{$prihoz->uzivatel->nick}</a> k <a n:href="Nemovitosti:detailNemovitosti, $prihoz->nemovitost">{$prihoz->nemovitost->nazev}</a> z <a n:href="Aukce:vypisHistorieAukce, $prihoz->nemovitost">{$prihoz->datum_vkladu|date:'d.m.Y H:i'}</a> ?
+        {control deletePrihozForm}
+    </div>
+{/block}
+
+{block head}
+<style>
+    form table { width: auto; margin: 0; }
+    form table tr:first-child { display: none; }
+    form table th { display: none; }
+</style>
+{/block}

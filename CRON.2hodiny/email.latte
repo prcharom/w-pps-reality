@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Gratulujeme Vám k výhře v aukci</title>
+    <style>
+    p { margin-top: 1em;}
+    span { color: darkblue;}
+    </style>
+</head>
+<body>
+    <p>
+        Dobrý den {$kupce->jmeno},
+    </p>
+    <p>
+        Vaše nabídka za nemovitost <span>{$nemovitost->nazev}</span> (id <span>{$nemovitost->idn}</span>) již nebyla nikým přehozena v určeném časovém limitu. Stal jste se tak výhercem aukce. 
+    </p>
+    <p>
+        Cena nemovitosti činí <span>{$cena|number}</span> Kč.
+    </p>
+    <p>
+        Nemovitost je k náhledu dostupná na adrese http://pps-reality.cz/nemovitosti/detail-nemovitosti/{$nemovitost->id}
+    </p>
+    <p>
+        Na tento email prosím neodpovídejte, byl vygenerován automaticky. V případě, že máte nějaké dotazy, tak se obraťte na info@pps-reality. 
+    </p>
+    <p>
+        S pozdravem, pps-reality.
+    </p>
+</body>
+</html>

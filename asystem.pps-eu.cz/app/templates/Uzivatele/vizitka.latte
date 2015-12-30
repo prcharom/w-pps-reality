@@ -1,0 +1,93 @@
+{block titulek}
+    Vizitka uživatele
+{/block}
+
+{block navigace}
+<a href="#">Administrátor</a> » {if $uzivatel->id_typ_uzivatele == 3}<a n:href="Uzivatele:zajemci">Přehled zájemců</a> » {/if}Vizitka uživatele  
+{/block}
+
+{block content}
+    <table class="vizitka left">
+        <tr>
+            <th>
+                Alias:
+            </th>
+            <td>
+                {$uzivatel->nick}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Jméno:
+            </th>
+            <td>
+                {$uzivatel->jmeno}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Email:
+            </th>
+            <td>
+                <a href="mailto:{$uzivatel->email}">
+                    {$uzivatel->email}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Telefon:
+            </th>
+            <td>
+                <a href="tel:{$uzivatel->telefon|strip|replace:' ',''}">
+                    {$uzivatel->telefon}
+                </a>
+            </td>
+         </tr>
+         <tr>
+            <th>
+                Adresa:
+            </th>
+            <td>
+                {$uzivatel->adresa}
+            </td>
+         </tr>
+    </table>
+    <table class="vizitka right">
+        <tr>
+            <th>
+                Přístup k:
+            </th>
+            <td>
+                <a n:if="$uzivatel->nemovitost != null" n:href="Nemovitosti:detailNemovitosti, $uzivatel->nemovitost">
+                    {$uzivatel->nemovitost->nazev}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>
+            	První přihlášení:
+            </th>
+            <td>
+            	{if $uzivatel->prvni_prihlaseni != null}
+            		{$uzivatel->prvni_prihlaseni|date:'d.m.Y H:i'}
+            	{else}
+            		Ještě se nepřihlásil(a).
+            	{/if}
+            </td>
+        </tr>
+    </table>
+{/block}
+
+{block head}
+<style>
+    table.vizitka th { text-align: right; color: #1e5eb6; }
+    table.vizitka th, table.vizitka td { padding: 3px 6px; font-size: 1em; font-weight: normal; }
+    table.vizitka a { color: #555; text-decoration: none;}
+    table.vizitka a:hover { color: #555; text-decoration: none; background: transparent;}
+    table.left { float: left; margin: 0 0 0 10%; width: 40%;}
+    table.left th { width: 20%; }
+    table.right { width: 50%; }
+    table.right th { width: 28%; }
+</style>
+{/block}

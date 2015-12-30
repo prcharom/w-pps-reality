@@ -1,0 +1,70 @@
+{block titulek}
+    Výpis přiložených souborů
+{/block}
+
+{block navigace}
+     <a href="#">Administrátor</a> »
+     {if $nemovitost->mod == 2}
+        <a n:href="Nemovitosti:vypis, 4">Nemovitosti, které jsou určeny k prodeji</a>
+    {elseif $nemovitost->mod == 3}
+        <a n:href="Nemovitosti:vypis, 5">Nemovitosti, které již byly prodány</a>
+    {else}
+        {if $status == 1}
+            <a n:href="Nemovitosti:vypis, 1">Nemovitosti, které čekají na zahájení aukce</a>
+        {elseif $status == 2}
+            <a n:href="Nemovitosti:vypis, 2">Nemovitosti, u kterých aukce již proběhla</a>
+        {else}
+            <a n:href="Nemovitosti:vypis, 3">Nemovitosti, u kterých aukce právě probíhá</a>
+        {/if}
+    {/if} » <a n:href="Nemovitosti:detailNemovitosti, $nemovitost->id">{$nemovitost->nazev}</a> » Výpis přiložených souborů
+{/block}
+
+{block content}
+    <div>
+        {if}
+        <table class="tabulka">
+            <tr>
+                <th>Název souboru</th>
+                <th>Typ souboru</th>
+                <th></th>
+            </tr>
+        {foreach $files as $file}
+            <tr>
+                <td>
+                    {$file->name}
+                </td>
+                <td>
+                    {$file->type}
+                </td>
+                <td>
+                    <a class="upravit" n:href="edit, $file->id_property, $file->id"><span>Upravit</span></a>
+                    <a class="smazat" n:href="delete, $file->id_property, $file->id"><span>Smazat</span></a> 
+                </td>
+            </tr>
+        {/foreach}
+        </table>
+        {else}
+            <p class="info">Nejsou nahrány žádné PDF.</p>
+        {/if isset($file)}
+    </div>
+{/block}
+
+{block head}
+<style>
+    #content table { margin: 1em auto; width: 70%; border-radius: 4px; border-color: transparent; }
+    #content table th, #content table td { padding: 3px 6px;}
+    #content table th:first-child { border-radius: 4px 0 0 4px; }
+    #content table th:last-child { border-radius: 0 4px 4px 0; }
+    #content table th:first-child, #content table td:first-child { width: 50%; }
+    #content table th:last-child, #content table td:last-child { width: 25%; }
+    #content table th { font-weight: normal; text-align: left; font-size: 90%; }
+    #content table td { font-weight: normal; text-align: center; }
+    #content table td:first-child { text-align: left; }
+    #content table th:nth-child(2) { text-align: center; }
+    #content table tr:last-child td { border-bottom: 1px solid #555; }
+    #content a.smazat { color: red; }
+    #content a.smazat:hover { color: white; background: red; }
+    #content a.upravit { color: darkcyan; }
+    #content a.upravit:hover { color: white; background: darkcyan; }
+</style>
+{/block}

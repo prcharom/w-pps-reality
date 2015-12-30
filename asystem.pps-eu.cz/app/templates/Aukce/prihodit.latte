@@ -1,0 +1,57 @@
+{block titulek}
+    Dražba nemovitosti
+{/block}
+
+{block navigace}
+{if $user->isAllowed('adminMenu')}<a href="#">Administrátor</a> » {/if}<a n:href="Nemovitosti:vypis, 3">Nemovitosti, u kterých aukce právě probíhá</a> » <a n:href="Nemovitosti:detailNemovitosti, $nemovitost->id">{$nemovitost->nazev}</a> » Přihodit
+{/block}
+
+{block content}
+{* k dane nemovitosti jiz bylo v minulosti minimalne 1 prihozeno *}
+{if $pocet_prihozu > 0}
+    <div class="info">
+       Vložte částku, kterou chcete přihodit. Minimální přihazovaná částka je <span>5,000</span> Kč.
+    </div>
+    <div class="info mt">
+        Nejvyšší nabídka je <span>{$drazba['cena']|number}</span> Kč od uživatele <span>{$drazba['nick']}</span>.
+    </div>
+    <div class="info mt c">
+        Vaše nabídka: 
+        <span id="money" money="{$drazba['cena']}">
+            0  
+        </span> Kč
+    </div>
+    {control prihozForm}
+{* k dane nemovitosi se prihazuje poprve, pouze se akceptuje vyvolavaci cena *}
+{else}
+    <div class="info">
+        Zatím nebyla podána žádná nabídka. Přejete si podat nabídku v hodnotě <span>{$drazba['cena']|number}</span> Kč.
+    </div>
+    {control prvniPrihozForm}
+{/if}
+{/block}
+
+{block head}
+<style>
+    div.c { text-align: center;}
+    div.info span { color: #1e5eb6; font-weight: normal; margin: 0; padding: 0;}
+    div.mt { margin-top: 0.5em; }
+    div.flash { margin-bottom: 0.5em; }
+    #frm-prihozForm, #frm-prihozForm table { margin: 1em auto; }
+    #frm-prihozForm tr:first-child { display: none; }
+    #frm-prihozForm tr:nth-child(2) { display: none; }
+    #frm-prihozForm tr:nth-child(3) { display: none; }
+    #frm-prihozForm tr th { width: 20%; text-align: right; padding: 6px; }
+    #frm-prihozForm tr th label { font-weight: bold; }
+    #frm-prihozForm tr td { width: 40%; text-align: left; }
+    #frm-prihozForm tr td input, #frm-prihozForm tr td textarea {
+        width: 55%; 
+        text-align: left;
+    }
+    #frm-prihozForm tr td .button { width: auto; text-align: center; }
+    #frm-prvniPrihozForm, #frm-prvniPrihozForm table { margin: 1em auto; }
+    #frm-prvniPrihozForm tr:first-child { display: none; }
+    #frm-prvniPrihozForm tr:nth-child(2) { display: none; }
+    #frm-prvniPrihozForm tr:nth-child(3) { display: none; }
+</style>
+{/block}

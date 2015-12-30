@@ -1,0 +1,254 @@
+{block titulek}
+    Vyhledávání nemovitostí
+{/block}
+
+{block navigace}
+    {if $user->isAllowed('adminMenu')}<a href="#">Administrátor</a> »{/if} Rozšířené vyhledávání nemovitostí
+{/block}
+
+{block content}
+    <div class="search-main info">
+        {form searchForm}
+            <table>
+                <tr>
+                    <td colspan="2">{input search} {input send}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {input t1} {input t2} {input t3} {input t4}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">{input s1}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">{input s2}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">{input s3}</td>
+                </tr>
+                <tr>
+                    <td>Minimální cena v Kč:<br> {input min}</td>
+                    <td>Maximální cena v Kč:<br> {input max}</td>
+                </tr>
+            </table>
+        {/form}
+    </div>
+    {if $is_q == true}
+        {if}
+            {if}
+            <div class="info">
+                Hledaný výraz byl nalezen v nadpisu u těchto nemovitostí:
+            </div>
+            <div class="search-boxes">
+            {foreach $n_nemovitosti as $n_nemovitost}
+            <div idn="{$n_nemovitost->id}" title="{$n_nemovitost->nazev} ({$n_nemovitost->adresa})" style="background-image:
+                {* pokud mam nahrany alespon jeden obrazek k n_nemovitosti, pak ho zobraz *} 
+                {if isset($n_nemovitost->related('photo.id_property')->fetch()->name)} 
+                    url({if isset($id) || $id != null}../{/if}../images/auction/{$n_nemovitost->id}/{$n_nemovitost->related('photo.id_property')->order('order DESC')->order('id ASC')->fetch()->name});
+                {* pokud nemam ani jeden obrazek nahrany k n_nemovitosti, tak zobraz defaultni *}
+                {else}
+                    url({if isset($id) || $id != null}../{/if}../images/auction/default.jpg);
+                {/if}
+                background-position: 50% 0%; background-size: auto 155px; background-repeat: no-repeat;" class="detail">
+                <div class="detail-popis">
+                    <h2>
+                        {$n_nemovitost->nazev|truncate:23}
+                    </h2>
+                    <p class="adresa">{$n_nemovitost->adresa|truncate:32}</p>
+                </div>
+            </div>   
+            {/foreach}
+            </div>
+            {/if isset($n_nemovitost)}
+        
+            {if}
+            <div class="info">
+                Hledaný výraz byl nalezen v popisu u těchto nemovitostí:
+            </div>
+            <div class="search-boxes">
+            {foreach $p_nemovitosti as $p_nemovitost}
+            <div idn="{$p_nemovitost->id}" title="{$p_nemovitost->nazev} ({$p_nemovitost->adresa})" style="background-image:
+                {* pokud mam nahrany alespon jeden obrazek k n_nemovitosti, pak ho zobraz *} 
+                {if isset($p_nemovitost->related('photo.id_property')->fetch()->name)} 
+                    url({if isset($id) || $id != null}../{/if}../images/auction/{$p_nemovitost->id}/{$p_nemovitost->related('photo.id_property')->order('order DESC')->order('id ASC')->fetch()->name});
+                {* pokud nemam ani jeden obrazek nahrany k p_nemovitost, tak zobraz defaultni *}
+                {else}
+                    url({if isset($id) || $id != null}../{/if}../images/auction/default.jpg);
+                {/if}
+                background-position: 50% 0%; background-size: auto 155px; background-repeat: no-repeat;" class="detail">
+                <div class="detail-popis">
+                    <h2>
+                        {$p_nemovitost->nazev|truncate:23}
+                    </h2>
+                    <p class="adresa">{$p_nemovitost->adresa|truncate:32}</p>
+                </div>
+            </div>   
+            {/foreach}
+            </div>
+            {/if isset($p_nemovitost)}
+        
+            {if}
+            <div class="info">
+                Hledaný výraz byl nalezen v adrese u těchto nemovitostí:
+            </div>
+            <div class="search-boxes">
+            {foreach $a_nemovitosti as $a_nemovitost}
+            <div idn="{$a_nemovitost->id}" title="{$a_nemovitost->nazev} ({$a_nemovitost->adresa})" style="background-image:
+                {* pokud mam nahrany alespon jeden obrazek k a_nemovitosti, pak ho zobraz *} 
+                {if isset($a_nemovitost->related('photo.id_property')->fetch()->name)} 
+                    url({if isset($id) || $id != null}../{/if}../images/auction/{$a_nemovitost->id}/{$a_nemovitost->related('photo.id_property')->order('order DESC')->order('id ASC')->fetch()->name});
+                {* pokud nemam ani jeden obrazek nahrany k a_nemovitosti, tak zobraz defaultni *}
+                {else}
+                    url({if isset($id) || $id != null}../{/if}../images/auction/default.jpg);
+                {/if}
+                background-position: 50% 0%; background-size: auto 155px; background-repeat: no-repeat;" class="detail">
+                <div class="detail-popis">
+                    <h2>
+                        {$a_nemovitost->nazev|truncate:23}
+                    </h2>
+                    <p class="adresa">{$a_nemovitost->adresa|truncate:32}</p>
+                </div>
+            </div>   
+            {/foreach}
+            </div>
+            {/if isset($a_nemovitost)}
+
+            {if}  
+            <div class="info">
+                Hledaný výraz byl nalezen v id u těchto nemovitostí:
+            </div>
+            <div class="search-boxes">
+            {foreach $i_nemovitosti as $i_nemovitost}
+            <div idn="{$i_nemovitost->id}" title="{$i_nemovitost->nazev} ({$i_nemovitost->adresa})" style="background-image:
+                {* pokud mam nahrany alespon jeden obrazek k i_nemovitosti, pak ho zobraz *} 
+                {if isset($i_nemovitost->related('photo.id_property')->fetch()->name)} 
+                    url({if isset($id) || $id != null}../{/if}../images/auction/{$i_nemovitost->id}/{$i_nemovitost->related('photo.id_property')->order('order DESC')->order('id ASC')->fetch()->name});
+                {* pokud nemam ani jeden obrazek nahrany k n_nemovitosti, tak zobraz defaultni *}
+                {else}
+                    url({if isset($id) || $id != null}../{/if}../images/auction/default.jpg);
+                {/if}
+                background-position: 50% 0%; background-size: auto 155px; background-repeat: no-repeat;" class="detail">
+                <div class="detail-popis">
+                    <h2>
+                        {$i_nemovitost->nazev|truncate:23}
+                    </h2>
+                    <p class="adresa">{$i_nemovitost->adresa|truncate:32}</p>
+                </div>
+            </div>   
+            {/foreach}
+            </div>
+            {/if isset($i_nemovitost)}
+        
+        {else}
+            <div class="info">
+                Hledaný výraz se dle Vámi zadaných kriterií nepodařilo nalézt. Je možné, že jste nevhodně nastavili parametry vyhledávání a nebo se hledaný výraz na webu nevyskytuje.
+            </div>
+        {/if isset($n_nemovitost) || isset($p_nemovitost) || isset($a_nemovitost) || isset($i_nemovitost)}
+    {else}
+        {if}
+            <div class="info">
+                Dle zadaných kritérií se podařilo nalézt tyto nemovitosti:
+            </div>
+            <div class="search-boxes">
+            {foreach $n_nemovitosti as $n_nemovitost}
+            <div idn="{$n_nemovitost->id}" title="{$n_nemovitost->nazev} ({$n_nemovitost->adresa})" style="background-image:
+                {* pokud mam nahrany alespon jeden obrazek k n_nemovitosti, pak ho zobraz *} 
+                {if isset($n_nemovitost->related('photo.id_property')->fetch()->name)} 
+                    url({if isset($id) || $id != null}../{/if}../images/auction/{$n_nemovitost->id}/{$n_nemovitost->related('photo.id_property')->order('order DESC')->order('id ASC')->fetch()->name});
+                {* pokud nemam ani jeden obrazek nahrany k n_nemovitosti, tak zobraz defaultni *}
+                {else}
+                    url({if isset($id) || $id != null}../{/if}../images/auction/default.jpg);
+                {/if}
+                background-position: 50% 0%; background-size: auto 155px; background-repeat: no-repeat;" class="detail">
+                <div class="detail-popis">
+                    <h2>
+                        {$n_nemovitost->nazev|truncate:23}
+                    </h2>
+                    <p class="adresa">{$n_nemovitost->adresa|truncate:32}</p>
+                </div>
+            </div>   
+            {/foreach}
+            </div>
+        {else}
+            <div class="info">
+                Dle zadaných kritérií se nepodařilo nalézt žádnou nemovitost. Změňte prosím parametry vyhledávání.
+            </div>    
+        {/if isset($n_nemovitost)}    
+    {/if}
+
+{/block}
+
+{block head}
+<style>
+    div.search-main {
+        margin-bottom: 1em;
+    }
+    .search-main table {
+        margin: auto;
+        width: 400px;
+    }
+    .search-main input[type="submit"] {
+        float: right;
+        width: 25%;
+    }
+    .search-main table tr:nth-child(2) td {
+        margin-bottom: 1em;
+    }
+    .search-main table tr:last-child td input {
+        width: 120px;
+    }
+    .search-main table tr:first-child td input[type="text"] {
+        width: 67%;
+    }
+    .search-boxes { display: inline-block; margin: 0 -0.5em; padding: 0 3%; height:100%; width: 883px;}
+    .search-boxes div.detail { 
+        width: 202px;
+        height: 202px;
+        vertical-align: top; 
+        display: inline-block;
+        background: #FFF; 
+        margin: 0.5em 1.9% 0.5em 0;   
+        border: 1px solid #e6e6e6; 
+        border-radius: 10px; 
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .search-boxes div.detail-popis { 
+        display: inline-block;
+        width: 202px;
+        height: 50px;
+        margin: 152px 0 0 0;
+        background: #fff;
+        border: 0;
+        border-radius: 0 0 10px 10px;
+        overflow: hidden;
+    }
+    .search-boxes div.detail:hover, .search-boxes div.detail:hover div.detail-popis, .search-boxes div.detail:hover div.detail-popis h2 { 
+        background: #333;
+        color: #fff;
+    }
+    .search-boxes div.detail:hover, .search-boxes div.detail-popis {
+    	border-color: #333;
+    }
+    .search-boxes div.detail div.detail-popis h2 a { 
+        background: transparent;
+        color: #555;
+    }
+    .search-boxes div.info { display: block; width: 100%; height: auto; color: #fff; background-color: rgb(102,123,180); border-color: #285e8e; }
+    .search-boxes h2 { text-align: left; margin: 3px 5px 0.5em 5px; font-size: 105%; font-weight: normal; overflow: hidden; }
+    .search-boxes h3 { display: block; clear: both; text-align: left; margin: 0 5px; font-size: 90%; font-weight: normal; }
+    .search-boxes img { width: 100%; margin: 0; }
+    .search-boxes p { clear: both; margin: 0 5px 0.5em 5px; }
+    .search-boxes p.adresa { font-size: 80%; }
+    .search-boxes p.info { margin: 1em auto; text-align: center;}
+    .search-boxes p a { color: #006aeb; background: #f7f7f7; padding: 1px 3px; border-radius: 3px; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, .10); }
+    .search-boxes p a:hover, .search-boxes p a:active, .search-boxes p a:focus { color: white; background-color: #006aeb; }
+    .search-boxes > div:nth-child(4n) { margin: 0.5em 0; }
+    @media (max-width: 700px) {
+	.search-boxes > div { float: none; width: auto; margin: 0 0 1.1em; min-height: 0; }
+	.search-boxes h2, .search-boxes p { margin: 0 0.5em; }
+	.search-boxes > div:nth-child(3n - 2) img { margin: -1em 0 0 -1em; }
+    }
+</style>
+{/block}

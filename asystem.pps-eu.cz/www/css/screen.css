@@ -1,0 +1,527 @@
+/**  Obecne  **/
+html { 
+        overflow-y: scroll; 
+}
+
+body { 
+      	font-size: 15px;
+      	line-height: 1.6;
+      	color: #555;
+        font: 14px/1.65 Verdana, "Geneva CE", lucida, sans-serif; 
+        background: #5A9BC5; 
+        margin: 1em auto; 
+        max-width: 940px;
+        min-width: 420px; 
+}
+
+h1, h2 { 
+        font: normal 150%/1.3 Verdana, "Geneva CE", lucida, sans-serif;
+        color: #1e5eb6; 
+        -webkit-text-stroke: 1px rgba(0,0,0,0); 
+}
+
+h2 span { 
+        color: #87A7D5; 
+}
+
+h2 a { 
+        text-decoration: none; 
+        background: transparent; 
+}
+
+img { 
+        border: none; 
+}
+
+.flash {
+        cursor: pointer;
+}
+
+a { 
+        color: #006aeb; 
+        padding: 3px 1px; 
+}
+
+a:hover, a:active, a:focus { 
+        background-color: #006aeb; 
+        text-decoration: none; 
+        color: white; 
+}
+
+/**  Formuláře  **/
+form input, form select, form textarea {
+        padding: 6px 12px;
+        vertical-align: middle;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+}
+
+.btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        line-height: 1.428571429;
+        vertical-align: middle;
+        font-weight: normal;
+        text-align: center;
+        white-space: nowrap;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+}
+
+.btn-primary {
+        color: #fff;
+        background-color: #428bca;
+        border-color: #357ebd;
+}
+
+.btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+        color: #fff;
+        background-color: #3276b1;
+        border-color: #285e8e;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+        color: #333;
+        background-color: #ebebeb;
+        border-color: #adadad;
+}
+
+/**  Hlavicka  **/
+#banner { 
+        border-radius: 12px 12px 0 0; 
+        background: white;
+        height: 100px; 
+        overflow: hidden;
+}
+
+#banner > h2 { 
+		display: block;
+		margin: 0.6em 0 0.5em 5.5em;
+		padding: 0;
+		font-size: 1.7em;
+		color: #999;
+}
+                         
+#banner img { 
+		float: left;
+        height: 110px;
+        margin: -2px 0 -15px 10px;
+}
+
+#banner span.search {
+        margin: 1em;        
+        width: 25em;
+        font-size: 80%;
+        float: right;
+        color: #555;
+        border-radius: 10px;
+        overflow: hidden;
+}
+
+#banner span.search table tr td input[type="text"] {
+    width: 169px;
+}
+
+#banner span.search table tr td input[type="submit"] {
+    width: 55px;
+}
+
+#banner span.search table tr td input[type="checkbox"] {
+    width: 13px;
+}
+
+#banner span.search form, #banner span.search form table {
+    text-align: left;
+}
+
+#banner span.search table tr:nth-child(3) td, #banner span.search table tr:nth-child(4) td, #banner span.search table tr:nth-child(5) td {
+    margin: 1px;
+    padding: 0 0 0 3px;
+}
+
+#banner span.search .btn {
+        line-height: 1.2;
+}
+
+#banner span.search a {
+        color: #5A9BC5;
+}
+
+#banner span.search a:hover {
+        color: white;
+        background: #5A9BC5;
+}
+
+#banner span.search table {        
+        width: 100%;
+        border-collapse: collapse;
+}
+
+#banner span.search table tr.hinfo {        
+        display: none;
+}
+
+#banner span.search table th, #banner span.search table td {        
+        padding: 3px 5px;
+        overflow: hidden;
+}
+
+#banner span.search table tr {        
+        display: inline-block;
+}
+
+#banner span.search table tr th {
+        display: none;
+}
+
+#banner span.search table tr:first-child th {
+        text-align: left;
+}
+
+#banner span.search form table tr:first-child th {
+        text-align: right;
+}
+
+#banner span.search table tr:nth-child(7) td {
+        text-align: center;
+        padding: 1em 0;
+}
+
+#banner span.search form table tr th label {
+        line-height: 30px;
+}
+
+@media (max-width: 600px) {
+        #banner h1 { background: none; }
+}
+
+/**  Menu  **/
+#cssmenu ul, #cssmenu li, #cssmenu span, #cssmenu a {
+        margin: 0;
+        padding: 0;
+        position: relative;
+}
+
+#cssmenu {
+        line-height: 1;
+        background: #141414;
+        background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
+        background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -o-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
+        background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+        border: 3px solid #5A9BC5;
+        margin: 0 -12px;
+        padding: 0 1.2em;
+        border-radius: 12px;
+}
+
+#cssmenu:after, #cssmenu ul:after {
+        content: '';
+        display: block;
+        clear: both;
+}
+
+#cssmenu a {
+        background: #141414;
+        background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
+        background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -o-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
+        background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+        color: #ffffff;
+        display: block;
+        padding: 19px 20px;
+        text-decoration: none;
+}
+
+#cssmenu ul {
+        list-style: none;
+}
+
+#cssmenu > ul > li {
+        display: inline-block;
+        float: left;
+        margin: 0;
+}
+
+#cssmenu.align-center {
+        text-align: center;
+}
+
+#cssmenu.align-center > ul > li {
+        float: none;
+}
+
+#cssmenu.align-center ul ul {
+        text-align: left;
+}
+
+#cssmenu.align-right > ul {
+        float: right;
+}
+
+#cssmenu.align-right ul ul {
+        text-align: right;
+}
+
+#cssmenu > ul > li > a {
+        color: #ffffff;
+        font-size: 12px;
+}
+
+#cssmenu > ul > li:hover:after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #5A9BC5;
+        margin-left: -10px;
+}
+
+#cssmenu.align-right > ul > li:first-child > a, #cssmenu.align-center > ul > li:first-child > a {
+        border-radius: 0;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+}
+
+#cssmenu > ul > li.active > a, #cssmenu > ul > li:hover > a {
+        color: #ffffff;
+        box-shadow: inset 0 0 3px #000000;
+        -moz-box-shadow: inset 0 0 3px #000000;
+        -webkit-box-shadow: inset 0 0 3px #000000;
+        background: #000;
+        background: -moz-linear-gradient(top, #262626 0%, #070707 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #262626), color-stop(100%, #070707));
+        background: -webkit-linear-gradient(top, #262626 0%, #070707 100%);
+        background: -o-linear-gradient(top, #262626 0%, #070707 100%);
+        background: -ms-linear-gradient(top, #262626 0%, #070707 100%);
+        background: linear-gradient(to bottom, #262626 0%, #070707 100%);
+}
+
+#cssmenu .has-sub {
+        z-index: 1;
+}
+
+#cssmenu .has-sub:hover > ul {
+        display: block;
+}
+
+#cssmenu .has-sub ul {
+        display: none;
+        position: absolute;
+        width: 200px;
+        top: 100%;
+        left: 0;
+}
+
+#cssmenu.align-right .has-sub ul {
+        left: auto;
+        right: 0;
+}
+
+#cssmenu .has-sub ul li {
+        *margin-bottom: -1px;
+}
+
+#cssmenu .has-sub ul li a {
+        background: #5A9BC5;
+        border-bottom: 1px dotted #31b7f1;
+        font-size: 11px;
+        filter: none;
+        display: block;
+        line-height: 120%;
+        padding: 10px;
+        color: #ffffff;
+}
+
+#cssmenu .has-sub ul li:hover a {
+        background: #0c7fb0;
+}
+
+#cssmenu ul ul li:hover > a {
+        color: #ffffff;
+}
+
+#cssmenu .has-sub .has-sub:hover > ul {
+        display: block;
+}
+
+#cssmenu .has-sub .has-sub ul {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+}
+
+#cssmenu.align-right .has-sub .has-sub ul, #cssmenu.align-right ul ul ul {
+        left: auto;
+        right: 100%;
+}
+
+#cssmenu .has-sub .has-sub ul li a {
+        background: #0c7fb0;
+        border-bottom: 1px dotted #31b7f1;
+}
+
+#cssmenu .has-sub .has-sub ul li a:hover {
+        background: #0a6d98;
+}
+
+#cssmenu ul ul li.last > a, #cssmenu ul ul li:last-child > a, #cssmenu ul ul ul li.last > a, #cssmenu ul ul ul li:last-child > a, #cssmenu .has-sub ul li:last-child > a, #cssmenu .has-sub ul li.last > a {
+        border-bottom: 0;
+}
+
+#cssmenu .menuimg {
+    height: 30px;
+    margin-top: -20px;
+    margin-bottom: -12px;
+}
+
+#cssmenu li.logged {
+    float: right;
+}
+
+/**  Navigace  **/
+#navigace {
+        font-size: 80%;
+        color: #999;
+        margin: 1em;
+}
+
+#navigace a {
+        text-decoration: underline;
+        color: #999;
+        background: transparent;
+}
+
+#navigace a:hover {
+        color: #555;
+}
+
+/**  Hlavni zobrazovaci okno  **/
+#content { 
+        background: white; 
+        border: 1px solid #eff4f7; 
+        border-radius: 0 0 12px 12px; 
+        padding: 0.5em; 
+}
+	
+#content > h2 { 
+        font-size: 130%; 
+        color: #666; 
+        clear: both; 
+        padding: 1.2em 0; 
+        margin: 0; 
+}
+
+#ajax-spinner {
+	margin: 15px 0 0 15px;
+	padding: 13px;
+	background: white url('../images/spinner.gif') no-repeat 50% 50%;
+	font-size: 0;
+	z-index: 123456;
+}
+
+/**  Flash zpravy a informace  **/
+div.info {
+	color: #555;
+	background: #f0f0f0;
+	border: 1px solid #e6e6e6;
+	padding: 1em;
+	margin: 0;
+}
+
+div.flash {
+	color: black;
+	background: #FFF9D7;
+	border: 1px solid #E2C822;
+	padding: 1em;
+	margin: 1em 0 0 0;
+}
+
+/**  Formulare  **/
+form th, form td {
+	vertical-align: top;
+	font-weight: normal;
+}
+
+form th {
+	text-align: right;
+}
+
+form .required label {
+	font-weight: bold;
+}
+
+form .error {
+	color: #D00;
+	font-weight: bold;
+}
+
+html.js .jshidden {
+	display: none;
+}
+
+/**  Paticka  **/
+footer { 
+	clear: both; 
+	font-size: 80%; 
+	padding: 1em; 
+	color: #999; 
+}
+
+/**  Tabulky  **/
+table.tabulka {
+        border-radius: 4px;
+        border-collapse: collapse;
+        border: 1px solid #141414;
+}
+
+table.tabulka tr:nth-child(2n+1) td {
+        background: #f0f0f0;
+}
+
+table.tabulka tr th {
+        color: white; 
+        text-align: left;
+        background: #141414;
+        background: -moz-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #141414));
+        background: -webkit-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -o-linear-gradient(top, #333333 0%, #141414 100%);
+        background: -ms-linear-gradient(top, #333333 0%, #141414 100%);
+        background: linear-gradient(to bottom, #333333 0%, #141414 100%);
+}
+
+table.tabulka tr td {
+        text-align: left;
+}
+
+/**  errors  **/
+p.error {
+        margin: 1em 10%;
+}

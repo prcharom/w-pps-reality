@@ -1,0 +1,35 @@
+{block titulek}
+    Smazat PDF soubor
+{/block}
+
+{block navigace}
+     <a href="#">Administrátor</a> »
+     {if $nemovitost->mod == 2}
+        <a n:href="Nemovitosti:vypis, 4">Nemovitosti, které jsou určeny k prodeji</a>
+    {elseif $nemovitost->mod == 3}
+        <a n:href="Nemovitosti:vypis, 5">Nemovitosti, které již byly prodány</a>
+    {else}
+        {if $status == 1}
+            <a n:href="Nemovitosti:vypis, 1">Nemovitosti, které čekají na zahájení aukce</a>
+        {elseif $status == 2}
+            <a n:href="Nemovitosti:vypis, 2">Nemovitosti, u kterých aukce již proběhla</a>
+        {else}
+            <a n:href="Nemovitosti:vypis, 3">Nemovitosti, u kterých aukce právě probíhá</a>
+        {/if}
+    {/if} » <a n:href="Nemovitosti:detailNemovitosti, $nemovitost->id">{$nemovitost->nazev}</a> »  <a n:href="File:vypis, $nemovitost->id">Výpis přiložených souborů</a> » Smazat PDF soubor
+{/block}
+
+{block content}
+    <div class="info">
+        Opravdu chcete smazat soubor <a href="../../files/auction/{$file->id_property}/{$file->hid_name}-{$file->timestamp}.{$file->type}" target="_blank">
+        {$file->name} (.{$file->type}, {$file->size} MB)</a>   ? 
+        {control deleteFileForm}
+    </div>
+{/block}
+
+{block head}
+<style>
+    form table { width: auto; margin: 0; }
+    form table th { display: none; }
+</style>
+{/block}

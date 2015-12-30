@@ -1,0 +1,30 @@
+{block titulek}
+    Změna hesla
+{/block}
+
+{block navigace}
+    {if $user->isAllowed('adminMenu')}<a href="#">Administrátor</a> » {/if}Změna hesla
+{/block}
+
+{block content}
+    <div class="info">
+        Pole označená <strong>*</strong> (hvězdičkou) je třeba vyplnit.
+    </div>
+    {control passEditForm}
+{/block}
+
+{block head}
+<style>
+    div.info { margin-bottom: 1em;}
+    #frm-passEditForm, #frm-passEditForm table { margin: 1em auto; width: 671px;}
+    #frm-passEditForm tr th { width: 20%; text-align: right; padding: 6px; }
+    #frm-passEditForm tr th label { font-weight: bold; }
+    #frm-passEditForm tr td { width: 40%; text-align: left; }
+    #frm-passEditForm tr td input, #frm-passEditForm tr td textarea {
+        width: 55%; 
+        text-align: left;
+    }
+    #frm-passEditForm tr td textarea { height: 12em; text-align: left; }
+    #frm-passEditForm tr td .button { width: auto; text-align: center; }
+</style>
+{/block}

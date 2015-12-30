@@ -1,0 +1,32 @@
+{block titulek}
+    Úprava kontaktu společnosti
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » Upravit kontakt společnosti
+{/block}
+
+{block content}
+    <div class="info">
+        U polí <span>Název společnosti</span>, <span>Adresa společnosti</span> a <span>Pracovní doba</span> lze odřádkovat pomocí znaku <b>;</b> (středníku).     
+    </div>
+    {control contactForm}
+{/block}
+
+{block head}
+<style>
+    div.info b { color: #1e5eb6;}
+    div.info span { color: #1e5eb6; padding: 0; margin: 0;}
+    #frm-contactForm, #frm-contactForm table { margin: 1em auto; }
+    #frm-contactForm tr:first-child { display: none; }
+    #frm-contactForm tr th { width: 20%; text-align: right; padding: 6px; }
+    #frm-contactForm tr th label { font-weight: bold; }
+    #frm-contactForm tr td { width: 40%; text-align: left; }
+    #frm-contactForm tr td input, #frm-contactForm tr td textarea {
+        width: 55%; 
+        text-align: left;
+    }
+    #frm-contactForm tr td textarea { height: 2.4em; text-align: left; }
+    #frm-contactForm tr td .button { width: auto; text-align: center; }
+</style>
+{/block}

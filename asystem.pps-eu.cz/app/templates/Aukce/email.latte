@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Informace k probíhající aukci</title>
+    <style>
+    p { margin-top: 1em;}
+    span { color: darkblue;}
+    </style>
+</head>
+<body>
+    <p>
+        Dobrý den {$uzivatel},
+    </p>
+    <p>
+        Vaše nabídka za nemovitost <span>{$nemovitost->nazev}</span> (id <span>{$nemovitost->idn}</span>) byla přehozena jiným zájemcem. 
+        Pokud o nemovitost máte stále zájem, tak můžete podat novou nabídku do <span>{$nemovitost->datum_konec|date:'j.n.Y H:i'}</span>.
+    </p>
+    <p>
+        Aktuální cena je <span>{$cena|number}</span> Kč.
+    </p>
+    <p>
+        Nemovitost je dostupná na adrese http://pps-reality.cz/nemovitosti/detail-nemovitosti/{$nemovitost->id}
+    </p>
+    <p>
+        Na tento email prosím neodpovídejte, byl vygenerován automaticky. V případě, že máte nějaké dotazy, tak se obraťte na info@pps-reality.cz. 
+    </p>
+    <p>
+        S pozdravem, pps-reality.
+    </p>
+</body>
+</html>

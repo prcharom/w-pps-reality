@@ -1,0 +1,30 @@
+{block titulek}
+    Úprava profilu
+{/block}
+
+{block navigace}
+    {if $user->isAllowed('adminMenu')}<a href="#">Administrátor</a> » {/if}Úprava profilu
+{/block}
+
+{block content}
+    <div class="info">
+        Alias přiděluje administrátor a nelze měnit.
+    </div>
+    {control userEditForm}
+{/block}
+
+{block head}
+<style>
+    div.info { margin-bottom: 1em;}
+    #frm-userEditForm, #frm-userEditForm table { margin: 1em auto; }
+    #frm-userEditForm tr th { width: 20%; text-align: right; padding: 6px; }
+    #frm-userEditForm tr th label { font-weight: bold; }
+    #frm-userEditForm tr td { width: 40%; text-align: left; }
+    #frm-userEditForm tr td input, #frm-userEditForm tr td textarea {
+        width: 55%; 
+        text-align: left;
+    }
+    #frm-userEditForm tr td textarea { height: 12em; text-align: left; }
+    #frm-userEditForm tr td .button { width: auto; text-align: center; }
+</style>
+{/block}

@@ -1,0 +1,133 @@
+{block titulek}
+    Výpis historie aukce
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » {if $status == 1}<a n:href="Nemovitosti:vypis, 1">Nemovitosti, které čekají na zahájení aukce</a>{elseif $status == 2}<a n:href="Nemovitosti:vypis, 2">Nemovitosti, u kterých aukce již proběhla</a>{else}<a n:href="Nemovitosti:vypis, 3">Nemovitosti, u kterých aukce právě probíhá</a>{/if} » <a n:href="Nemovitosti:detailNemovitosti, $nemovitost->id">{$nemovitost->nazev}</a> » Výpis historie aukce
+{/block}
+
+{block content}
+<table class="tabulka drazba">
+    <tr>
+        <th>
+            Status
+        </th>
+        <th>
+            Datum a čas
+        </th>
+        <th>
+            Nick uživatele
+        </th>
+        <th>
+            Jméno uživatele
+        </th>
+        <th>
+            Částka
+        </th>
+    </tr>
+    <tr>
+        <td>
+            Zadáno
+        </td>
+        <td>
+            {$nemovitost->datum_zacatek|date:'d.m.Y H:i'}
+        </td>
+        <td>
+            <a n:href="Uzivatele:vizitka, $nemovitost->id_uzivatel">
+                {$nemovitost->uzivatel->nick}
+            </a>
+        </td>
+        <td>
+            {$nemovitost->uzivatel->jmeno}
+        </td>
+        <td>
+            {var $nabidka = $nemovitost->pocatecni_cena}
+            {$nabidka|number} Kč
+        </td>
+    </tr>
+{if}   
+    {foreach $prihozy as $prihoz}
+        <tr>
+            <td>
+                Nabídka
+            </td>
+            <td>
+                {$prihoz->datum_vkladu|date:'d.m.Y H:i'}
+            </td>
+            <td>
+                <a n:href="Uzivatele:vizitka, $prihoz->id_uzivatel">
+                    {$prihoz->uzivatel->nick}
+                </a>
+            </td>
+            <td>
+                {$prihoz->uzivatel->jmeno}
+            </td>
+            <td>
+                <span>(+{$prihoz->vkladana_castka|number})</span> {$nabidka = $nabidka + $prihoz->vkladana_castka|number} Kč
+            </td>
+            <td n:if="$user->isAllowed('drazba','smazatPrihoz')">
+                <a class="smazat" n:href="smazatPrihoz, $prihoz->id">smazat</a>
+            </td>
+        </tr>
+    {/foreach}
+{/if isset($prihoz)}
+    <tr>
+        {if $status == 1}
+            <td>
+                Začne
+            </td>
+            <td>
+                {$nemovitost->datum_zacatek|date:'d.m.Y H:i'}
+            </td>
+        {elseif $status == 2}
+            <td>
+                Konec
+            </td>
+            <td>
+                {$nemovitost->datum_konec|date:'d.m.Y H:i'}
+            </td>
+        {else}
+            <td>
+                Probíhá
+            </td>
+            <td>
+                {$now|date:'d.m.Y H:i'}
+            </td>    
+        {/if}
+        <td>
+            <a n:href="Uzivatele:vizitka, $drazba['id']">
+                {$drazba['nick']}
+            </a>
+        </td>
+        <td>
+            {$drazba['jmeno']}
+        </td>
+        <td>
+            {$drazba['cena']|number} Kč
+        </td>
+    </tr>
+</table>
+{/block}
+
+{block head}
+<style>
+    a.smazat { color: red; }
+    a.smazat:hover { color: white; background: red; }
+    table.drazba { margin: 1em auto; width: 96%; border-collapse: collapse; border-color: transparent; border-radius: 4px; }
+    table.drazba td:first-child { width: 10%; overflow: hidden;}
+    table.drazba td:nth-child(2) { width: 20%; overflow: hidden;}
+    table.drazba td:nth-child(3) { width: 20%; overflow: hidden;}
+    table.drazba td:nth-child(4) { width: 20%; overflow: hidden;}
+    table.drazba th { font-weight: normal; text-align: left; font-size: 90%; padding: 3px 6px; }
+    table.drazba th:first-child { border-radius: 4px 0 0 4px; }
+    table.drazba th:last-child { border-radius: 0 4px 4px 0; }
+    table.drazba td { font-weight: normal; text-align: left; padding: 3px 6px; }
+    table.drazba tr td:first-child { text-align: center; }
+    table.drazba tr td:last-child { text-align: center; }
+    table.drazba tr td:nth-child(5) { text-align: right; }
+    table.drazba tr:nth-child(2n+1) { background: #f0f0f0; }
+    table.drazba tr:nth-child(2) td { border-bottom: 1px solid #555; background: white; }
+    table.drazba tr:last-child td { border-top: 1px solid #555; border-bottom: 1px solid #555; background: white; }
+    table.drazba td span { margin: 0; padding: 0; color: #AAA;}
+</style>
+{/block}

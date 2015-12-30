@@ -1,0 +1,158 @@
+﻿{**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>{ifset #titulek}{include titulek|striptags} | {/ifset}Podnikatelský poradenský servis</title>
+
+    <link rel="shortcut icon" href="{$basePath}/favicon.ico">
+    <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="{$basePath}/css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="{$basePath}/css/lightbox.css">
+    {block head}{/block}
+</head>
+
+<body>
+    <script> document.documentElement.className+=' js' </script>
+
+    <div id="banner">
+        <span class="search">
+            {form basicSearchForm}
+            <table>
+                <tr>
+                    <td>{input search}</td>
+                    <td>{input send}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a n:href="Search:rozsireneVyhledavani">
+                            Přejít k rozšířenému vyhledávání?
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            {/form}
+        </span>
+        <img src="{$basePath}/images/logo/logo.png">
+        <h2>Prodej a aukce<br> nemovitostí</h2>
+    </div>
+    
+    <div id="cssmenu">
+        <ul>
+        	<li>
+                <a n:href="Homepage:default"><span>Domů</span></a>
+            </li>
+            <li class='has-sub'>
+                <a href="#"><span>Nemovitosti k prodeji</span></a>
+                <ul>
+                    <li>
+                        <a n:href="Nemovitosti:vypis, 4"><span>Nemovitosti, které jsou určeny k prodeji</span></a>
+                    </li>
+                    <li>
+                        <a n:href="Nemovitosti:vypis, 5"><span>Nemovitosti, které již byly prodány</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class='has-sub'>
+                <a href="#"><span>Nemovitosti k aukci</span></a>
+                <ul>
+                    <li>
+                        <a n:href="Nemovitosti:vypis, 1"><span>Nemovitosti, které čekají na zahájení aukce</span></a>
+                    </li>
+                    <li>
+                        <a n:href="Nemovitosti:vypis, 3"><span>Nemovitosti, u kterých aukce právě probíhá</span></a>
+                    </li>
+                    <li>
+                        <a n:href="Nemovitosti:vypis, 2"><span>Nemovitosti, u kterých aukce již proběhla</span></a>
+                    </li>
+                </ul>
+            </li>
+            {if $user->isAllowed('adminMenu')}
+            <li class='has-sub'>
+                <a href="#"><span>Admin menu</span></a>
+                <ul>
+		            <li>
+		                <a n:href="Nemovitosti:pridatNemovitost"><span>Vytvořit novou nemovitost</span></a>
+		            </li>
+                    <li>
+                        <a n:href="Nemovitosti:vypisNepublikovanych"><span>Výpis nepublikovaných nemovitostí</span></a>
+                    </li>
+                    <li>
+                        <a n:href="Uzivatele:pridatZajemce"><span>Vytvořit nový účet zájemce</span></a> 
+                    </li>
+		            <li>
+		                <a n:href="Uzivatele:zajemci"><span>Výpis a správa účtů zájemců</span></a> 
+		            </li>
+                    <li>
+                        <a n:href="Homepage:upravitKontakt"><span>Upravit kontakt</span></a> 
+                    </li>
+                    <li>
+                        <a n:href="Homepage:upravitPodminky"><span>Upravit podmínky</span></a> 
+                    </li>
+                    <li>
+                        <a n:href="Homepage:upravitDomu"><span>Upravit domovskou stránku</span></a> 
+                    </li>
+		         </ul>
+		     </li>
+            {/if}
+            <li>
+                <a n:href="Homepage:podminky">Podmínky</a>
+            </li>
+            <li>
+            	<a n:href="Homepage:kontakt">Kontakt</a>
+            </li>
+            {if $user->loggedIn}
+                <li class="has-sub logged" >
+                    <a href="#"><img class="menuimg" src="{$basePath}/images/icons/mix/loggin.png"> {$user->identity->nick}</a>
+                    <ul>
+                        <li n:ifset="$user->identity->id_nemovitost">
+                            <a n:href="Nemovitosti:detailNemovitosti, $user->identity->id_nemovitost">
+                                <span>Přejít na přidělenou nemovitost k aukci</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a n:href="Uzivatele:zmenitHeslo"><span>Změnit heslo k profilu</span></a>
+                        </li>
+                        <li>
+                            <a n:href="Uzivatele:upravitProfil"><span>Upravit informace o profilu</span></a>
+                        </li>
+                        <li>
+                            <a n:href="Homepage:out"><span>Odhlásit se</span></a>
+                        </li>
+                    </ul>
+                </li>
+            {else}
+                <li>
+                    <a n:href="Homepage:prihlaseni">Přihlásit se</a>
+                </li>    
+            {/if}
+        </ul>
+    </div>
+        
+    
+    <div id="content"> 
+        <div id="navigace">{include navigace}</div>
+        <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+        
+        {include content}
+
+        <footer>© {date('Y')} Podnikatelský poradenský servis s.r.o.</footer>
+    </div>
+    
+    {block scripts}
+        <script src="{$basePath}/js/knihovny/jquery-1.11.0.min.js"></script>
+        <script src="{$basePath}/js/lightbox.js"></script>
+        <script src="{$basePath}/js/knihovny/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/knihovny/jQueryRotateCompressed.js"></script>
+        <script src="{$basePath}/js/jquery.nette.js"></script>
+        <script src="{$basePath}/js/jquery.functions.js"></script>
+        <script src="{$basePath}/js/jquery.datetimepicker.js"></script>
+    {/block}
+  
+</body>
+</html>

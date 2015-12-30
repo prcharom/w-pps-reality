@@ -1,0 +1,21 @@
+{block titulek}
+    Mazání účtů zájemců
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » <a n:href="Uzivatele:zajemci">Přehled zájemců</a> » <a n:href="Uzivatele:vizitka, $zajemce->id">{$zajemce->jmeno}</a> » Smazat účet zájemce
+{/block}
+
+{block content}
+    <div class="info">
+        Opravdu chcete smazat uživatele <a n:href="vizitka, $zajemce->id">{$zajemce->nick}</a> ? 
+        {control deleteUzivatelForm}
+    </div>
+{/block}
+
+{block head}
+<style>
+    form table { width: auto; margin: 0; }
+    form table th { display: none; }
+</style>
+{/block}

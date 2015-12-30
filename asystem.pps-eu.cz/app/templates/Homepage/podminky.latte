@@ -1,0 +1,25 @@
+{block titulek}
+    Podmínky
+{/block}
+
+{block navigace}
+    Podmínky
+{/block}
+
+{block content}
+    <div class="terms"> 
+        <h2>{$terms->title}</h2>
+        <h3>Naposledy upraveno: {$month} {$terms->last_modified|date:'j, Y'}</h3>
+        {* aby to neescapovalo html tagy, tak je zapotrebi pouzit helper noescape *}
+        <p>{$body|noescape}</p> 
+    </div>
+{/block}
+
+{block head}
+<style>
+    div.terms { display: block; margin: 1em 1.5em; text-align: left; font-weight: normal; font-size: 1em; }
+    div.terms h2, div.terms h3, div.terms p { display: block; margin: 0; padding: 0;} 
+    div.terms h2 { font-size: 1.7em;}
+    div.terms h3 { font-size: 80%; font-weight: normal; margin: 1em 0;}
+</style>
+{/block}

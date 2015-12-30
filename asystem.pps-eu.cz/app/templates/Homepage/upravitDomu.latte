@@ -1,0 +1,32 @@
+{block titulek}
+    Úprava domovské stránky
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » Upravit domovskou stránku
+{/block}
+
+{block content}
+    <div class="info">
+        V tomto poli lze odřádkovat pomocí znaku <b>;</b> (středníku).
+    </div>
+    {control homeForm}
+{/block}
+
+{block head}
+<style>
+    div.info b { color: #1e5eb6;}
+    div.info span { color: #1e5eb6; padding: 0; margin: 0;}
+    #frm-homeForm, #frm-homeForm table { margin: 1em auto; width: 90%;}
+    #frm-homeForm tr:first-child { display: none; }
+    #frm-homeForm tr th { width: 20%; text-align: right; padding: 6px; }
+    #frm-homeForm tr th label { font-weight: bold; }
+    #frm-homeForm tr td { width: 60%; text-align: left; }
+    #frm-homeForm tr td input, #frm-homeForm tr td textarea {
+        width: 80%; 
+        text-align: left;
+    }
+    #frm-homeForm tr td textarea { height: 15em; text-align: left; }
+    #frm-homeForm tr td .button { width: auto; text-align: center; }
+</style>
+{/block}

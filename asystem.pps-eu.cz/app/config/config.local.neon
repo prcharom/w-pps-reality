@@ -1,0 +1,10 @@
+parameters:
+
+
+nette:
+	database:
+		dsn: 'mysql:host=127.0.0.1;dbname=pps-eucz01'
+		user: pps-eucz002
+		password: FZLAqHu6
+		options:
+			lazy: yes

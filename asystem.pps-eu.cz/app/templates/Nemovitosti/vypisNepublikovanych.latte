@@ -1,0 +1,86 @@
+{block titulek}
+    Přehled nepublikovaných nemovitostí
+{/block}
+
+{block navigace}
+    {if $user->isAllowed('adminMenu')}<a href="#">Administrátor</a> »{/if} 
+    Nepublikované nemovitosti
+{/block}
+
+{block content}
+    <div class="main-window">
+        {if}
+        <table>
+        {foreach $nemovitosti as $nemovitost}
+            <tr>
+                <td idn="{$nemovitost->id}" title="{$nemovitost->nazev} ({$nemovitost->adresa})" style="background-image:
+            	{* pokud mam nahrany alespon jeden obrazek k nemovitosti, pak ho zobraz *} 
+            	{if isset($nemovitost->related('photo.id_property')->fetch()->name)} 
+            		url(../images/auction/{$nemovitost->id}/{$nemovitost->related('photo.id_property')->order('order DESC')->order('id ASC')->fetch()->name});
+            	{* pokud nemam ani jeden obrazek nahrany k nemovitosti, tak zobraz defaultni *}
+            	{else}
+            		url(../images/auction/default.jpg);
+            	{/if}
+             	background-position: 50% 50%; background-size: auto 155px; background-repeat: no-repeat;" class="detail">
+                </td>
+                <td>
+                    {$nemovitost->nazev|truncate:23}
+                </td>
+                <td>
+                    {$nemovitost->adresa|truncate:32}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                        	{form pubForm}
+
+							<!-- vykreslení chyb -->
+							<ul class="errors" n:if="$form->hasErrors()">
+							    <li n:foreach="$form->errors as $error">{$error}</li>
+							</ul>
+
+							<div id="pub_tab_{$nemovitost->id}">
+								<div class="required">
+									{$form["id"]->control->setValue($nemovitost->id)}
+								</div>
+								<div>
+									{input send}
+								</div>
+							</div>
+
+							{/form}
+                        </li>
+                        <li>
+                            <a class="btn btn-primary" n:href="nemovitosti:detailNemovitosti, $nemovitost->id">Detail</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>  
+        {/foreach}
+        </table>
+        {else}
+            <p class="info">Momentálně nejsou k dispozici žádné nemovitosti.</p>
+        {/if isset($nemovitost)}
+    </div>
+{/block}
+
+{block head}
+<style>
+    .main-window table { width: 90%; margin: 0 auto; border-collapse: collapse;}
+    .main-window table td { 
+        width: 27%; 
+        padding: 3px 6px; 
+        background: #EAEAEA;
+        border-bottom: 1px solid white;
+    }
+    .main-window table td:first-child { width: 100px; border-right: 1px solid white;}
+    .main-window table tr { height: 100px;}
+    .main-window table div > div:first-child { display: none;}
+    .main-window table div > div { margin: 2px;}
+    ul { list-style: none;}
+    .btn { text-decoration: none; margin: 0; width: 130px;}
+    form .btn { margin: 0; width: 155px;}
+    form { margin: 0 0 0 -2px; padding: 0;}
+    div.flash { margin-bottom: 1em;}
+</style>
+{/block}

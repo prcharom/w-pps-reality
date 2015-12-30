@@ -1,0 +1,67 @@
+{block titulek}
+    Přehled účtů zájemců
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » Přehled zájemců
+{/block}
+
+{block content}
+    <div>
+        {if}
+        <table class="tabulka">
+            <tr>
+                <th>Alias</th>
+                <th>Jméno</th>
+                <th>Přístup k</th>
+                <th>První přihlášení</th>
+                <th></th>
+            </tr>
+        {foreach $zajemci as $zajemce}
+            <tr>
+            <td><a n:href="vizitka, $zajemce->id">{$zajemce->nick}</a></td>
+                <td>{$zajemce->jmeno}</td>
+                <td>
+                    <a n:href="Nemovitosti:detailNemovitosti, $zajemce->nemovitost">
+                        {$zajemce->nemovitost->nazev|truncate:30}
+                    </a>
+                </td>
+                <td>
+                    {if $zajemce->prvni_prihlaseni != null}
+                        {$zajemce->prvni_prihlaseni|date:'d.m.Y H:i'}
+                    {else}
+                        Ještě se nepřihlásil(a).
+                    {/if}
+                </td>
+                <td>
+                    <a class="upravit" n:href="upravitZajemce, $zajemce->id"><span>upravit</span></a> 
+                    <a class="smazat" n:href="smazatZajemce, $zajemce->id"><span>smazat</span></a>
+                </td>
+            </tr>
+        {/foreach}
+        </table>
+        {else}
+            <p class="info">Nejsou vytvořeny žádné účty zájemců. Vytvořte je pomocí administrátorského menu.</p>
+        {/if isset($zajemce)}
+    </div>
+{/block}
+
+{block head}
+<style>
+    #content table { margin: 1em auto; width: 96%; border-radius: 4px; border-color: transparent; }
+    #content table th, #content table td { padding: 3px 6px; width: 20%; }
+    #content table th:first-child { border-radius: 4px 0 0 4px; }
+    #content table th:last-child { border-radius: 0 4px 4px 0; }
+    #content table th:nth-child(2), #content table td:nth-child(2) { padding: 3px 6px; width: 18%; }
+    #content table th:nth-child(3), #content table td:nth-child(3) { padding: 3px 6px; width: 30%; }
+    #content table th:first-child, #content table td:first-child { width: 15%; }
+    #content table th:last-child, #content table td:last-child { width: 17%; text-align: center; }
+    #content table th { font-weight: normal; text-align: left; font-size: 90%; }
+    #content table td { font-weight: normal; text-align: left; }
+    #content table tr:last-child td { border-bottom: 1px solid #555; }
+    #content a.smazat { color: red; }
+    #content a.smazat:hover { color: white; background: red; }
+    #content a.upravit { color: darkcyan; }
+    #content a.upravit:hover { color: white; background: darkcyan; }
+</style>
+{/block}

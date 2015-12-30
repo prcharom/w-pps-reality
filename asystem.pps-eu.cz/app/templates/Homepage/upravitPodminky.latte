@@ -1,0 +1,41 @@
+{block titulek}
+    Úprava podmínek
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » Upravit podmínky
+{/block}
+
+{block content}
+    <div class="info">
+        V poli <span>Podmínky</span> platí tyto formátovací pravidla:
+        <ul> 
+            <li>
+                Pokud chcete, aby libovolná část textu byla vypsána tučně, pak tento text uzavřete do dvojtých jednoduchých závorek. Zápis <span>(( tučný text ))</span> zobrazí <b>tučný text</b>.
+            </li>                
+            <li>
+                Odřádkování lze docíllit pomocí znaku <b>;</b> (středníku)
+            </li>
+        </ul>  
+    </div>
+    {control termsForm}
+{/block}
+
+{block head}
+<style>
+    div.info ul { margin: 0.5em 0 0 0;}
+    div.info b { color: #1e5eb6;} 
+    div.info span { color: #1e5eb6; padding: 0; margin: 0;}
+    #frm-termsForm, #frm-termsForm table { margin: 1em auto; }
+    #frm-termsForm tr:first-child { display: none; }
+    #frm-termsForm tr th { width: 20%; text-align: right; padding: 6px; }
+    #frm-termsForm tr th label { font-weight: bold; }
+    #frm-termsForm tr td { width: 60%; text-align: left; }
+    #frm-termsForm tr td input, #frm-termsForm tr td textarea {
+        width: 80%; 
+        text-align: left;
+    }
+    #frm-termsForm tr td textarea { height: 15em; text-align: left; }
+    #frm-termsForm tr td .button { width: auto; text-align: center; }
+</style>
+{/block}

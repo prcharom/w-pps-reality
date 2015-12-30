@@ -1,0 +1,30 @@
+{block titulek}
+    Přidání účtu zájemce
+{/block}
+
+{block navigace}
+    <a href="#">Administrátor</a> » Přidat účet zájemce
+{/block}
+
+{block content}
+    <div class="info">
+        Pole označená <strong>*</strong> (hvězdičkou) je třeba vyplnit.
+    </div>
+    {control zajemceForm}
+{/block}
+
+{block head}
+<style>
+    #frm-zajemceForm, #frm-zajemceForm table { margin: 1em auto; }
+    #frm-zajemceForm tr:first-child { display: none; }
+    #frm-zajemceForm tr th { width: 20%; text-align: right; padding: 6px; }
+    #frm-zajemceForm tr th label { font-weight: bold; }
+    #frm-zajemceForm tr td { width: 40%; text-align: left; }
+    #frm-zajemceForm tr td input, #frm-zajemceForm tr td textarea {
+        width: 55%; 
+        text-align: left;
+    }
+    #frm-zajemceForm tr td textarea { height: 12em; text-align: left; }
+    #frm-zajemceForm tr td .button { width: auto; text-align: center; }
+</style>
+{/block}
